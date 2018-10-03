@@ -1,0 +1,28 @@
+#Lazar Novakovic
+#Physics 300 Homework
+#Heat Capacity 
+
+import numpy as np
+from scipy.integrate import quad
+import matplotlib.pyplot as plt
+
+V = 1 * 10 **(-3)
+p = 6.022 * 10**(28)
+theta_D = 428
+k_bol = 1.38064852 * 10**(-23)
+
+f = lambda x: ((x**4) * np.exp(x))/((np.exp(x) - 1)**2)
+
+def Hcap(T):
+    return 9 * V * p * k_bol * ((T/theta_D)**3) * quad(f, 0, theta_D/T)[0]
+
+cap_array = []
+temps = range(5,500,1)
+
+for T in temps:
+    cap_array.append(Hcap(T))
+    
+plt.plot(temps, cap_array)
+plt.xlabel("Temperature")
+plt.ylabel( 'Heat Capacity Cv')
+plt.show()
